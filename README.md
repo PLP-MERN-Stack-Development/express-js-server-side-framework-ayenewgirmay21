@@ -1,62 +1,172 @@
-# Express.js RESTful API Assignment
+🗄️ Week 2: Express.js – Server-Side Framework
+🚀 Objective
 
-This assignment focuses on building a RESTful API using Express.js, implementing proper routing, middleware, and error handling.
+Build a RESTful API using Express.js with proper CRUD operations, middleware, error handling, and advanced features such as filtering, pagination, search, and statistics.
 
-## Assignment Overview
+📂 Project Structure
+express-api/
+│
+├── routes/
+│   └── products.js          # RESTful product routes
+│
+├── middleware/
+│   ├── logger.js            # Logs request method, URL, timestamp
+│   ├── auth.js              # API key authentication
+│   ├── validateProduct.js   # Product creation/update validation
+│   └── errorHandler.js      # Global error handling middleware
+│
+├── errors/
+│   ├── NotFoundError.js     # 404 error
+│   └── ValidationError.js   # 400 error
+│
+├── server.js                # Main server setup
+├── package.json             # Dependencies
+└── README.md                # Documentation (this file)
 
-You will:
-1. Set up an Express.js server
-2. Create RESTful API routes for a product resource
-3. Implement custom middleware for logging, authentication, and validation
-4. Add comprehensive error handling
-5. Develop advanced features like filtering, pagination, and search
+⚙️ Setup Instructions
+1️⃣ Install Dependencies
 
-## Getting Started
+Make sure Node.js is installed, then run:
 
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Install dependencies:
-   ```
-   npm install
-   ```
-4. Run the server:
-   ```
-   npm start
-   ```
+npm install
 
-## Files Included
+2️⃣ Start the Server
+npm start
 
-- `Week2-Assignment.md`: Detailed assignment instructions
-- `server.js`: Starter Express.js server file
-- `.env.example`: Example environment variables file
 
-## Requirements
+or with nodemon for auto-reloading:
 
-- Node.js (v18 or higher)
-- npm or yarn
-- Postman, Insomnia, or curl for API testing
+npm run dev
 
-## API Endpoints
 
-The API will have the following endpoints:
+Server runs on:
 
-- `GET /api/products`: Get all products
-- `GET /api/products/:id`: Get a specific product
-- `POST /api/products`: Create a new product
-- `PUT /api/products/:id`: Update a product
-- `DELETE /api/products/:id`: Delete a product
+http://localhost:3000
 
-## Submission
+🌍 Available Routes (Tasks 1–5)
+Method	Endpoint	Description
+GET	/api/products	List all products (supports filtering & pagination)
+GET	/api/products/:id	Get product by ID
+POST	/api/products	Create a new product
+PUT	/api/products/:id	Update existing product
+DELETE	/api/products/:id	Delete a product
+GET	/api/products/search	Search products by name (?name=keyword)
+GET	/api/products/stats	Get product count by category
+🧩 Middleware Implemented
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
+Logger Middleware
+Logs each request: method, URL, timestamp
 
-1. Complete all the required API endpoints
-2. Implement the middleware and error handling
-3. Document your API in the README.md
-4. Include examples of requests and responses
+Authentication Middleware
+Requires API key in header:
 
-## Resources
+x-api-key: 12345
 
-- [Express.js Documentation](https://expressjs.com/)
-- [RESTful API Design Best Practices](https://restfulapi.net/)
-- [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) 
+
+Validation Middleware
+Validates product fields for POST/PUT requests
+
+Error Handling Middleware
+Catches all errors and returns JSON with proper status codes:
+
+400 → Validation errors
+
+404 → Not found
+
+500 → Internal server error
+
+🧪 Example Product JSON
+{
+  "name": "Smartphone",
+  "description": "Latest Android phone",
+  "price": 499.99,
+  "category": "Electronics",
+  "inStock": true
+}
+
+🔹 Testing Your API
+Using Postman
+
+Open Postman
+
+Add header: x-api-key: 12345
+
+Use endpoints as listed above
+
+For POST/PUT requests, select Body → raw → JSON and paste the JSON above
+
+Click Send
+
+Using PowerShell (Windows)
+
+Wrap URLs in quotes if using & in query parameters:
+
+# List all products with filtering & pagination
+curl "http://localhost:3000/api/products?category=Electronics&page=1&limit=2"
+
+# Search products by name
+curl "http://localhost:3000/api/products/search?name=phone"
+
+# Get product statistics
+curl "http://localhost:3000/api/products/stats"
+
+🔹 Example Responses
+
+1️⃣ GET /api/products
+
+[
+  { "id": 1, "name": "Phone", "category": "Electronics", "inStock": true },
+  { "id": 2, "name": "Headphones", "category": "Audio", "inStock": true }
+]
+
+
+2️⃣ GET /api/products/search?name=phone
+
+[
+  { "id": 1, "name": "Phone", "description": "Android smartphone", "category": "Electronics" }
+]
+
+
+3️⃣ GET /api/products/stats
+
+{
+  "Electronics": 3,
+  "Audio": 1,
+  "Wearables": 1
+}
+
+
+4️⃣ Error Handling Example (Product Not Found)
+
+{
+  "error": "NotFoundError",
+  "message": "Product not found"
+}
+
+✅ Expected Outcome
+
+Fully RESTful API with CRUD operations
+
+Middleware for logging, authentication, validation
+
+Global error handling with proper status codes
+
+Advanced features: filtering, pagination, search, product statistics
+
+Easy to test with Postman or cURL
+
+📸 Submission Checklist
+
+server.js
+
+routes/products.js
+
+Middleware folder with logger, auth, validation, errorHandler
+
+Errors folder with NotFoundError and ValidationError
+
+package.json
+
+README.md (this file)
+
+Screenshot from Postman showing working API
