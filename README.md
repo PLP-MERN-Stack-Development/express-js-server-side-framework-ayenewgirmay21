@@ -1,8 +1,6 @@
 🗄️ Week 2: Express.js – Server-Side Framework
 🚀 Objective
-
 Build a RESTful API using Express.js with proper CRUD operations, middleware, error handling, and advanced features such as filtering, pagination, search, and statistics.
-
 📂 Project Structure
 express-api/
 │
@@ -33,16 +31,10 @@ npm install
 2️⃣ Start the Server
 npm start
 
-
 or with nodemon for auto-reloading:
-
 npm run dev
-
-
 Server runs on:
-
 http://localhost:3000
-
 🌍 Available Routes (Tasks 1–5)
 Method	Endpoint	Description
 GET	/api/products	List all products (supports filtering & pagination)
@@ -126,7 +118,6 @@ curl "http://localhost:3000/api/products/stats"
   { "id": 1, "name": "Phone", "description": "Android smartphone", "category": "Electronics" }
 ]
 
-
 3️⃣ GET /api/products/stats
 
 {
@@ -134,7 +125,6 @@ curl "http://localhost:3000/api/products/stats"
   "Audio": 1,
   "Wearables": 1
 }
-
 
 4️⃣ Error Handling Example (Product Not Found)
 
