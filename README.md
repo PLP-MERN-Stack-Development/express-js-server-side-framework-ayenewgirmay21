@@ -1,73 +1,88 @@
-#🗄️ Week 2: Express.js – Server-Side Framework
-##🚀 Objective
-Build a RESTful API using Express.js with proper CRUD operations, middleware, error handling, and advanced features such as filtering, pagination, search, and statistics.
-###📂 Project Structure
+# 🗄️ Express.js Product API – Week 2 Assignment
+
+## 🚀 Objective
+Build a **RESTful API** using Express.js that demonstrates:
+
+- CRUD operations  
+- Middleware (logging, authentication, validation)  
+- Error handling  
+- Advanced features (filtering, pagination, search, statistics)
+
+---
+
+## 📂 Project Structure
 express-api/
 │
 ├── routes/
-│   └── products.js          # RESTful product routes
-│
+│ └── products.js
 ├── middleware/
-│   ├── logger.js            # Logs request method, URL, timestamp
-│   ├── auth.js              # API key authentication
-│   ├── validateProduct.js   # Product creation/update validation
-│   └── errorHandler.js      # Global error handling middleware
-│
+│ ├── logger.js
+│ ├── auth.js
+│ ├── validateProduct.js
+│ └── errorHandler.js
 ├── errors/
-│   ├── NotFoundError.js     # 404 error
-│   └── ValidationError.js   # 400 error
-│
-├── server.js                # Main server setup
-├── package.json             # Dependencies
-└── README.md                # Documentation (this file)
+│ ├── NotFoundError.js
+│ └── ValidationError.js
+├── server.js
+├── package.json
+└── README.md
 
-⚙️ Setup Instructions
-1️⃣ Install Dependencies
+yaml
+Copy code
 
-Make sure Node.js is installed, then run:
+---
 
+## ⚙️ Setup Instructions
+
+### 1️⃣ Install Dependencies
+```bash
 npm install
-
 2️⃣ Start the Server
+bash
+Copy code
 npm start
+or with nodemon:
 
-or with nodemon for auto-reloading:
+bash
+Copy code
 npm run dev
-Server runs on:
-http://localhost:3000
-🌍 Available Routes (Tasks 1–5)
+Server runs at: http://localhost:3000
+
+🧩 Available Routes
 Method	Endpoint	Description
 GET	/api/products	List all products (supports filtering & pagination)
-GET	/api/products/:id	Get product by ID
+GET	/api/products/:id	Get a product by ID
 POST	/api/products	Create a new product
-PUT	/api/products/:id	Update existing product
+PUT	/api/products/:id	Update an existing product
 DELETE	/api/products/:id	Delete a product
 GET	/api/products/search	Search products by name (?name=keyword)
 GET	/api/products/stats	Get product count by category
-🧩 Middleware Implemented
 
-Logger Middleware
-Logs each request: method, URL, timestamp
+🧩 Middleware
+Logger
+Logs every request method, URL, and timestamp.
 
-Authentication Middleware
-Requires API key in header:
+Authentication
+Checks for header:
 
+makefile
+Copy code
 x-api-key: 12345
+Validation
+Validates product fields on POST and PUT requests.
 
-
-Validation Middleware
-Validates product fields for POST/PUT requests
-
-Error Handling Middleware
-Catches all errors and returns JSON with proper status codes:
+Error Handling
+Catches errors globally and returns JSON responses with proper status codes:
 
 400 → Validation errors
 
 404 → Not found
 
-500 → Internal server error
+500 → Internal server errors
 
 🧪 Example Product JSON
+json
+Copy code
 {
   "name": "Smartphone",
   "description": "Latest Android phone",
@@ -75,88 +90,80 @@ Catches all errors and returns JSON with proper status codes:
   "category": "Electronics",
   "inStock": true
 }
-
 🔹 Testing Your API
 Using Postman
-
-Open Postman
-
 Add header: x-api-key: 12345
 
-Use endpoints as listed above
+Use JSON body for POST/PUT requests
 
-For POST/PUT requests, select Body → raw → JSON and paste the JSON above
+Use query parameters for filtering/pagination:
 
-Click Send
+bash
+Copy code
+/api/products?category=Electronics&page=1&limit=5
+Search endpoint: /api/products/search?name=phone
 
-Using PowerShell (Windows)
+Stats endpoint: /api/products/stats
 
-Wrap URLs in quotes if using & in query parameters:
+Using PowerShell
+Wrap URLs in quotes:
 
-# List all products with filtering & pagination
+powershell
+Copy code
 curl "http://localhost:3000/api/products?category=Electronics&page=1&limit=2"
-
-# Search products by name
 curl "http://localhost:3000/api/products/search?name=phone"
-
-# Get product statistics
 curl "http://localhost:3000/api/products/stats"
-
 🔹 Example Responses
-
-1️⃣ GET /api/products
-
+GET /api/products
+json
+Copy code
 [
   { "id": 1, "name": "Phone", "category": "Electronics", "inStock": true },
   { "id": 2, "name": "Headphones", "category": "Audio", "inStock": true }
 ]
-
-
-2️⃣ GET /api/products/search?name=phone
-
+GET /api/products/search?name=phone
+json
+Copy code
 [
   { "id": 1, "name": "Phone", "description": "Android smartphone", "category": "Electronics" }
 ]
-
-3️⃣ GET /api/products/stats
-
+GET /api/products/stats
+json
+Copy code
 {
   "Electronics": 3,
   "Audio": 1,
   "Wearables": 1
 }
-
-4️⃣ Error Handling Example (Product Not Found)
-
+Error Example
+json
+Copy code
 {
   "error": "NotFoundError",
   "message": "Product not found"
 }
-
 ✅ Expected Outcome
-
-Fully RESTful API with CRUD operations
+Fully functional RESTful API
 
 Middleware for logging, authentication, validation
 
-Global error handling with proper status codes
+Comprehensive error handling with correct HTTP status codes
 
-Advanced features: filtering, pagination, search, product statistics
+Advanced features: filtering, pagination, search, statistics
 
-Easy to test with Postman or cURL
+Fully testable with Postman or cURL
 
 📸 Submission Checklist
-
 server.js
 
 routes/products.js
 
-Middleware folder with logger, auth, validation, errorHandler
+middleware/ folder
 
-Errors folder with NotFoundError and ValidationError
+errors/ folder
 
 package.json
 
 README.md (this file)
 
-Screenshot from Postman showing working API
+Screenshot from Postman showing working endpoints
